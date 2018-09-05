@@ -1,0 +1,10 @@
+{
+  "musica": {
+    "nome": "ausencia",
+    "duracao": "00:50",
+    "autor": "Marilia Mendonça"
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
