@@ -1,11 +1,17 @@
-const app = require(back/app); 
 const request = require('supertest');
+const express = require('express');
 
-request(app)
+const test = express();
+
+test.get('/user', function (req, res) {
+  res.status(200).json({ name: 'Natasha' });
+});
+
+request(test)
   .get('/user')
   .expect('Content-Type', /json/)
   .expect('Content-Length', '15')
   .expect(200)
-  .end(function(err, res) {
+  .end(function (err, res) {
     if (err) throw err;
   });

@@ -1,13 +1,21 @@
 {
-  "musica": {
-    "nome": "ausencia",
-    "duracao": "00:50",
-    "autor": "Marilia Mendonça"
+  "name": "back",
+  "version": "1.0.0",
+  "description": "project backend of devweb",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thaisnat/devweb-back.git"
   },
+  "author": "Thais Toscano",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "memory-cache": "^0.2.0",
+    "morgan": "^1.9.0"
   },
   "devDependencies": {
-    "supertest": "^3.2.0"
+    "supertest": "^3.3.0"
   }
 }
