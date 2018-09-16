@@ -1,5 +1,3 @@
-# devweb-back
-
-Sistema de Monitoria Online
+# Sistema de Monitoria Online
 
 Rede social voltada para estudos.
