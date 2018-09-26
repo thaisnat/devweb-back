@@ -9,6 +9,9 @@ exports.us_find = (req, res) => {
   user.find({})
 };
 
+exports.us_findByEnrollment = (req,res) => {
+  user.findByEnrollment(req.params.findByEnrollment)
+}
 exports.us_findById = (req, res) => {
   user.findById(req.params.id)
 };

@@ -11,7 +11,7 @@ var us_schema = new schema({
     required: true,
     unique: true
   },
-  id: { //enroll
+  enrollment: {
     type: Number,
     required: true,
     unique: true

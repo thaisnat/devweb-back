@@ -11,6 +11,8 @@ us_route.post('/', userController.us_create);
 
 us_route.get('/', userController.us_find);
 
+us_route.get('/enrollment', userController.us_findByEnrollment);
+
 us_route.get('/:id', userController.us_findById);
 
 us_route.get('/login', userController.login);
