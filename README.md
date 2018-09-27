@@ -1,3 +1,3 @@
-# Sistema de Monitoria Online
+# The online academic monitoring system
 
-Rede social voltada para estudos.
+Social network for study.
