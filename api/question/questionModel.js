@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const schema = new mongoose.Schema;
+const schema = mongoose.Schema;
 
-var qs_schema = new Schema({
+const questionSchema = new schema({
   title: {
     type: String
   },
@@ -18,4 +18,4 @@ var qs_schema = new Schema({
   }
 })
 
-module.exports = mongoose.model('question', qs_schema);
+module.exports = mongoose.model('question', questionSchema);

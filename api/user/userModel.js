@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const schema = new mongoose.Schema;
+const schema = mongoose.Schema;
 
 
-var us_schema = new schema({
+const userSchema = new schema({
   name: {
     type: String
   },
@@ -35,4 +35,8 @@ var us_schema = new schema({
   }
 })
 
-module.exports = mongoose.model('user', us_schema);
+userSchema.methods.verifyPassword = (password) => {
+  return (userSchema.password === password);
+};
+
+module.exports = mongoose.model('user', userSchema);

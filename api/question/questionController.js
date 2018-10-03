@@ -1,16 +1,26 @@
-const question = require('./question');
+const question = require('./questionModel');
 
-exports.qs_create = (req, res) => {
-  var question = new question(req.body);
-  res.json({ temp: "Question register" })
-}
-
-exports.qs_find = (req, res) => {
-  question.find({})
+exports.createQuestion = (req, res) => {
+  const questionNew = new question(req.body);
+  questionNew.save((err, question) => {
+    if (err)
+      next(err);
+    res.status(201).json(question);
+  });
 };
 
-exports.qs_findById = (req, res) => {
-  question.findById(req.params.id)
+exports.getQuestion = function (req, res, next) {
+  question.findById(req.params.questionId, (err, question) => {
+    if (err)
+      next(err);
+    res.status(200).json(question);
+  });
 };
 
-module.exports = qs_route;
+exports.deleteQuestion = function (req, res, next) {
+  question.findByIdAndRemove(req.params.questionId, (err, question) => {
+    if (err)
+      next(err);
+    res.status(200).json({ mensagem: "Deleted successfully." });
+  });
+};

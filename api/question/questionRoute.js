@@ -1,14 +1,8 @@
-const express = require('express');
-const qs_route = express.Router();
-const questionController = require('./questionController');
 
-qs_route.use(function timeLog(req, res, next) {
-  console.log('Time: ', Date.now())
-  next()
-})
+module.exports = function (questionRoute) {
+  const question = require('./questionController');
 
-qs_route.post('/', questionController.qs_create);
-
-qs_route.get('/', questionController.qs_find);
-
-qs_route.get('/:id', questionController.qs_findById);
+  questionRoute.route('/question').post(question.createquestion);
+  questionRoute.route('/question/:questionId').get(question.getquestion);
+  questionRoute.route('/question/:questionId').delete(question.deletequestion);
+};

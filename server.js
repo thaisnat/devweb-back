@@ -1,21 +1,28 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const morgan = require("morgan");
-const user = require("./router/user/user");
-const user = require("./router/question/question");
-const cache = require('memory-cache');
-const cors = require('cors');
-const passport = require('passport');
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+const express = require("express"),
+  bodyParser = require("body-parser"),
+  morgan = require("morgan"),
+  fs = require('fs'),
+  path = require('path'),
+  cache = require('memory-cache'),
+  mongoose = require('mongoose'),
+  passport = require('passport'),
+  session = require('express-session'),
+  MongoStore = require('connect-mongo')(session),
+  sr = express(),
+  port = process.env.PORT || 3000,
+  user = require("./api/user/userRoute"),
+  question = require("./api/question/questionRoute");
 
-const sr = express();
-const sr_port = process.env.PORT || 3000;
+user(sr);
+//question(sr);
 
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+
+// setup the logger
+sr.use(morgan('tiny', { stream: accessLogStream }))
 
 // Body-Parser
 sr.use(bodyParser.urlencoded({ extended: false }));
-
 sr.use(bodyParser.json());
 
 sr.use(function (req, res, next) {
@@ -23,39 +30,20 @@ sr.use(function (req, res, next) {
   next();
 });
 
-sr.use('/public', express.static('./static'));
-sr.use("./user", user);
-
-sr.get('/api', (req, res) =>
-  res.json({ msg: "will be successful!!!" })
-);
-
-const port = process.env.PORT || 3000;
-
-sr.listen(port, () => console.log(`Server running on port ${port}`));
+sr.use('/public', express.static(__dirname + './static'));
 
 //cache
 
 cache.put('user', 'Ana');
 cache.get('user');
 
-sr.use(cors());
-
-//conf cors
-sr.get('/login', cors(), function (req, res, next) {
-  res.json({ msg: "user login" });
-})
-
-sr.get('/user/:id/question', cors(), function (req, res, next) {
-  res.json({ msg: "user question by id" });
-})
+mongoose.Promise = Promise;
+mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true });
 
 //session
 
-require('./back/passport')(passport);
-
+require('./passport')(passport);
 sr.use(session({
-
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
     ttl: 30 * 60
@@ -72,6 +60,6 @@ sr.get('/', (req, res) =>
   res.send("Welcome to website")
 );
 
-app.listen(app_port, () => console.log("The online academic monitoring system is ready and set on port " + sr_port + "!"))
+sr.listen(port, () => console.log("The online academic monitoring system is ready and set on port " + port + "!"))
 
 module.exports = sr;
