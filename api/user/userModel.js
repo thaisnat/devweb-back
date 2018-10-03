@@ -3,9 +3,6 @@ const schema = mongoose.Schema;
 
 
 const userSchema = new schema({
-  name: {
-    type: String
-  },
   username: {
     type: String,
     required: true,
@@ -29,11 +26,7 @@ const userSchema = new schema({
     type: String,
     required: true
   },
-  mode: {
-    type: String,
-    required: true
-  }
-})
+});
 
 userSchema.methods.verifyPassword = (password) => {
   return (userSchema.password === password);

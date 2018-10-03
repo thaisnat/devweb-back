@@ -4,19 +4,6 @@ const user = require("./api/user/userRoute");
 
 module.exports = function (passport) {
 
-    //  function findUser(username, callback) {
-    //    User.findOne({ "username": username }, function (err, doc) {
-    //      callback(err, doc);
-    //});
-    //}
-
-    //function findUserById(id, callback) {
-    // const ObjectId = require("mongoose").ObjectId;
-    //User.findById(id, (err, doc) => {
-    //  callback(err, doc);
-    //});
-    // }
-
     passport.serializeUser(function (user, done) {
         done(null, user.id);
     });
