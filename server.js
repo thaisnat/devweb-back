@@ -57,9 +57,9 @@ sr.use(passport.initialize());
 sr.use(passport.session());
 
 sr.get('/', (req, res) =>
-  res.send("Welcome to website")
+  res.send("Bem vindo ao Site !!")
 );
 
-sr.listen(port, () => console.log("The online academic monitoring system is ready and set on port " + port + "!"))
+sr.listen(port, () => console.log("O sistema de monitoria online está sendo executado na porta " + port + "!"))
 
 module.exports = sr;
