@@ -11,10 +11,10 @@ const express = require("express"),
   sr = express(),
   port = process.env.PORT || 3000,
   user = require("./api/user/userRoute"),
-  question = require("./api/question/questionRoute");
+  post = require("./api/question/postRoute");
 
 user(sr);
-//question(sr);
+//post(sr);
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 

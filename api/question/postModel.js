@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-const questionSchema = new schema({
+const postSchema = new schema({
   bodyText: {
     type: String,
     required: true
@@ -12,4 +12,4 @@ const questionSchema = new schema({
   }
 })
 
-module.exports = mongoose.model('question', questionSchema);
+module.exports = mongoose.model('post', postSchema);
