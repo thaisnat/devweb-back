@@ -3,10 +3,10 @@ const request = require('supertest');
 const chai = require('chai');
 const expect = chai.expect;
 
-describe('Test GET question', () => {
+describe('Test GET answer', () => {
     it('Return all', () => {
         request(app)
-            .get('/question')
+            .get('/answer')
             .end((err, res) => {
                 expect('Content-Type', /json/);
                 expect(res.statusCode).to.be.equal(200);
@@ -14,17 +14,16 @@ describe('Test GET question', () => {
     });
 });
 
-describe('Test POST question', () => {
-    it('Returns a correctly created question', () => {
-        const question = { discipline: 'Filosofia', bodyText: 'Se o mundo existe, Graças a Deus, porque ele existe?' };
+describe('Test POST answer', () => {
+    it('Returns a correctly created answer', () => {
+        const answer = { bodyText: 'O mundo existe, graças a Deus, porque nós existimonos' };
         request(app)
-            .post('/question')
-            .send(question)
+            .post('/answer')
+            .send(answer)
             .end((err, res) => {
                 expect('Content-Type', /json/);
                 expect(res.statusCode).to.be.equal(201);
-                expect(res.body.discipline).to.be.equal('Filosofia');
-                expect(res.body.bodyText).to.be.equal('Se o mundo existe, Graças a Deus, porque ele existe?');
+                expect(res.body.bodyText).to.be.equal('O mundo existe, graças a Deus, porque nós existimonos');
             });
     });
 });

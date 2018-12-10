@@ -2,9 +2,6 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 const questionSchema = new schema({
-  title: {
-    type: String
-  },
   bodyText: {
     type: String,
     required: true
@@ -12,9 +9,6 @@ const questionSchema = new schema({
   discipline: {
     type: String,
     required: true
-  },
-  author: {
-    type: String,
   }
 })
 
