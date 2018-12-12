@@ -3,23 +3,21 @@ const express = require("express"),
   morgan = require("morgan"),
   fs = require('fs'),
   path = require('path'),
+  sr = express(),
   cache = require('memory-cache'),
   mongoose = require('mongoose'),
-  passport = require('passport'),
-  session = require('express-session'),
-  //MongoStore = require('connect-mongo')(session),
-  sr = express(),
-  port = process.env.PORT || 3000,
-  user = require("../user/userRoute"),
-  post = require("../question/postRoute");
+  cors = require('cors'),
+  swagger = require('./doc/docRoute'),
+  authentic = require('../src/authentication/authenticRoute'),
+  port = process.env.PORT || 3000;
 
-user(sr);
-//post(sr);
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 
 // setup the logger
 sr.use(morgan('tiny', { stream: accessLogStream }))
+
+sr.use('/static', express.static(__dirname + '/static'))
 
 // Body-Parser
 sr.use(bodyParser.urlencoded({ extended: false }));
@@ -30,6 +28,18 @@ sr.use(function (req, res, next) {
   next();
 });
 
+sr.use(cors());
+
+const post = require('../src/post/postRoute'),
+  answer = require('../src/answer/answerRoute'),
+  user = require('../src/user/userRoute');
+
+post(sr);
+answer(sr);
+user(sr);
+swagger(sr);
+authentic(sr);
+
 sr.use('/public', express.static(__dirname + './static'));
 
 //cache
@@ -39,26 +49,6 @@ cache.get('user');
 
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true });
-
-//session
-
-require('./passport')(passport);
-sr.use(session({
-  store: new MongoStore({
-    mongooseConnection: mongoose.connection,
-    ttl: 30 * 60
-  }),
-  secret: 'tempsecret',
-  resave: false,
-  saveUninitialized: false
-}));
-
-sr.use(passport.initialize());
-sr.use(passport.session());
-
-sr.get('/', (req, res) =>
-  res.send("Bem vindo ao Site !!")
-);
 
 sr.listen(port, () => console.log("O sistema de monitoria online está sendo executado na porta " + port + "!"))
 
