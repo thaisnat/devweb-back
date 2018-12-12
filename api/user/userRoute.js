@@ -1,11 +1,19 @@
 
 module.exports = function (userRoute) {
   const user = require('./userController');
+  const authentication = require('../authentication/authenticController');
+  const authentic = authentication.authenticate;
+  const permittedUser = authentication.authorizeByUser;
 
-  userRoute.route('/user').post(user.createUser);
-  userRoute.route('/user/:userId').get(user.getUser);
-  userRoute.route('/user/:userId').put(user.updateUser);
-  userRoute.route('/user/:userId').delete(user.deleteUser);
+
+  userRoute.route('/user')
+    .post(user.createUser)
+    .get(authentic, user.listUser);
+
+  userRoute.route('/user/:username')
+    .get(authentic, user.getUser)
+    .put(authentic, permittedUser, user.updateUser)
+    .delete(authentic, permittedUser, user.deleteUser);
 
 };
 

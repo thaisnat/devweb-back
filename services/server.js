@@ -7,11 +7,11 @@ const express = require("express"),
   mongoose = require('mongoose'),
   passport = require('passport'),
   session = require('express-session'),
-  MongoStore = require('connect-mongo')(session),
+  //MongoStore = require('connect-mongo')(session),
   sr = express(),
   port = process.env.PORT || 3000,
-  user = require("./api/user/userRoute"),
-  post = require("./api/question/postRoute");
+  user = require("../user/userRoute"),
+  post = require("../question/postRoute");
 
 user(sr);
 //post(sr);

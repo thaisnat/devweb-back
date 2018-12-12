@@ -10,7 +10,7 @@ exports.createUser = (req, res) => {
 };
 
 exports.getUser = function (req, res, next) {
-  user.findById(req.params.userId, (err, user) => {
+  user.findOnde({ username: req.params.username }, (err, user) => {
     if (err)
       next(err);
     res.status(200).json(user);
@@ -18,7 +18,7 @@ exports.getUser = function (req, res, next) {
 };
 
 exports.updateUser = function (req, res, next) {
-  user.findByIdAndUpdate(req.params.userId, req.body, { new: true }, (err, user) => {
+  user.findOneAndUpdate({ username: req.params.username }, req.body, { new: true }, (err, user) => {
     if (err)
       next(err);
     res.status(200).json(user);
@@ -26,9 +26,17 @@ exports.updateUser = function (req, res, next) {
 };
 
 exports.deleteUser = function (req, res, next) {
-  user.findByIdAndRemove(req.params.userId, (err, user) => {
+  user.findOneAndRemove({ username: req.params.username }, (err, user) => {
     if (err)
       next(err);
     res.status(200).json({ mensagem: "Deleted successfully." });
+  });
+};
+
+exports.listUser = function (req, res) {
+  user.find((err, user) => {
+    if (err)
+      res, send(err);
+    res.status(200).json(user);
   });
 };
