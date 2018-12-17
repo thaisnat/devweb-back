@@ -2,7 +2,7 @@ const swaggerJSDoc = require('swagger-jsdoc');
 
 const swaggerDef = {
   'basePath': '/',
-  'host': 'localhost:3000',
+  'host': 'localhost:8000',
   'info': {
     'description': 'Rede social voltada para o auxilio nos estudos.',
     'title': 'Me ajudaaaaa !!',

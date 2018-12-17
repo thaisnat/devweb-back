@@ -1,21 +1,27 @@
+const express = require('express');
+const router = express.Router();
+const RequestStatus = require('../../services/requests/requestStatus');
+const user = require('./userController');
 
-module.exports = function (userRoute) {
-  const user = require('./userController');
-  const authentication = require('../authentication/authenticController');
-  const authentic = authentication.authenticate;
-  const permittedUser = authentication.authorizeByUser;
+function authentication(req, res, next) {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.status(RequestStatus.UNAUTHORIZED).send('User not logged.');
+  }
+}
 
+router.get('/', authentication, user.index);
 
-  userRoute.route('/user')
-    .post(user.createUser)
-    .get(authentic, user.listUser);
+router.get('/user_id', authentication, user.show);
 
-  userRoute.route('/user/:username')
-    .get(authentic, user.getUser)
-    .put(authentic, permittedUser, user.updateUser)
-    .delete(authentic, permittedUser, user.deleteUser);
+router.post('/', authentication, user.createUser);
 
-};
+router.put('/:user_id', authentication, user.updateUser);
+
+router.delete('/:user_id', authentication, user.deleteUser);
+
+module.exports = router;
 
 
 

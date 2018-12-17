@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
 
+const validateEmail = function (email) {
+  var val = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return val.test(email);
+};
+
 const userSchema = new schema({
   username: {
     type: String,
@@ -12,16 +17,22 @@ const userSchema = new schema({
     type: String,
     required: true
   },
-  discipline: {
-    type: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Discipline'
-    }]
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: {
+      validator: validateEmail,
+      message: 'Invalid email'
+    }
+  },
+  image: {
+    type: String
   },
   lists: {
     type: [
       {
-        type: Schema.Types.ObjectId,
+        type: schema.Types.ObjectId,
         ref: 'List'
       }
     ]

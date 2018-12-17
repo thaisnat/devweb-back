@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-const postSchema = new schema({
+const PostSchema = new schema({
   bodyText: {
     type: String,
-    required: true
+    required: true,
+    maxlenght: 500
   },
   discipline: {
     type: String,
@@ -12,4 +13,4 @@ const postSchema = new schema({
   }
 })
 
-module.exports = mongoose.model('post', postSchema);
+module.exports = mongoose.model('Post', PostSchema);

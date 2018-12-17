@@ -1,24 +1,46 @@
 {
-  "musica": {
-    "nome": "ausencia",
-    "duracao": "00:50",
-    "autor": "Marilia Mendonça"
-  },
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
+    "connect-mongo": "^2.0.3",
+    "connect-mongodb": "^1.1.5",
+    "cors": "^2.8.5",
     "debug-log": "^1.0.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
+    "fix": "0.0.6",
     "memory-cache": "^0.2.0",
+    "method-override": "^3.0.0",
     "mongodb": "^3.1.10",
-    "mongoose": "^5.3.16",
+    "mongoose": "^5.4.0",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "swagger-jsdoc": "^3.2.3"
+    "swagger-jsdoc": "^3.2.6",
+    "swagger-ui-express": "^4.0.2"
   },
   "devDependencies": {
     "supertest": "^3.3.0"
-  }
+  },
+  "name": "back",
+  "description": "Rede social voltada para estudos.",
+  "version": "1.0.0",
+  "main": "server.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thaisnat/devweb-back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thaisnat/devweb-back/issues"
+  },
+  "homepage": "https://github.com/thaisnat/devweb-back#readme"
 }
