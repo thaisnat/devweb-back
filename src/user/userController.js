@@ -106,11 +106,3 @@ exports.deleteUser = async (req, res) => {
     res.status(RequestStatus.BAD_REQUEST).send(error);
   }
 };
-
-exports.listUser = function (req, res) {
-  user.find((err, user) => {
-    if (err)
-      res, send(err);
-    res.status(200).json(user);
-  });
-};

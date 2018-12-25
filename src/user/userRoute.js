@@ -15,7 +15,7 @@ router.get('/', authentication, user.index);
 
 router.get('/user_id', authentication, user.show);
 
-router.post('/', authentication, user.createUser);
+router.post('/', user.createUser);
 
 router.put('/:user_id', authentication, user.updateUser);
 

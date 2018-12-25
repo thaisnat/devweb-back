@@ -42,10 +42,17 @@ mongoose.connect(db_url, { useNewUrlParser: true });
 // Morgan
 sr.use(morgan('dev'));
 
-// Body-Parser
-sr.use(bodyParser.urlencoded({ extended: true }));
-sr.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+// Parse application/json
 sr.use(bodyParser.json());
+
+// Parse application/vnd.api+json as json
+sr.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+
+// Parse application/x-www-form-urlencoded
+sr.use(bodyParser.urlencoded({ extended: true }));
+
+// override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
+sr.use(methodOverride('X-HTTP-Method-Override'));
 
 sr.use(methodOverride('X-HTTP-Method-Override'));
 

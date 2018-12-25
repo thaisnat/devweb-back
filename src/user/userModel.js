@@ -7,15 +7,11 @@ const validateEmail = function (email) {
   return val.test(email);
 };
 
-const userSchema = new schema({
+const UserSchema = new schema({
   username: {
     type: String,
     required: true,
     unique: true
-  },
-  password: {
-    type: String,
-    required: true
   },
   email: {
     type: String,
@@ -26,36 +22,20 @@ const userSchema = new schema({
       message: 'Invalid email'
     }
   },
-  image: {
-    type: String
-  },
-  lists: {
-    type: [
-      {
-        type: schema.Types.ObjectId,
-        ref: 'List'
-      }
-    ]
+  password: {
+    type: String,
+    required: true
   }
 });
 
-userSchema.pre('save', function (next) {
-  const user = this;
-  if (!user.isModified('password')) {
-    return next();
-  }
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(user.password, salt, null, (err, hash) => {
-      user.password = hash;
-      next();
-    });
-  });
-});
+UserSchema.methods.generateHash = (password) => {
+  return bcrypt.hash(password, bcrypt.genSaltSync(10), null);
+};
 
-userSchema.method({
-  comparePassword(reqPassword, userPassword) {
-    return bcrypt.compareSync(reqPassword, userPassword)
-  }
-});
+UserSchema.methods.validPassword = (password, userPassword) => {
+  return bcrypt.compareSync(password, userPassword);
+};
 
-module.exports = mongoose.model('user', userSchema);
+var User = mongoose.model('User', UserSchema);
+
+module.exports = User;
