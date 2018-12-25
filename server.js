@@ -31,6 +31,7 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'),
 // setup the logger
 sr.use(morgan('tiny', { stream: accessLogStream }))
 
+// static
 sr.use('/static', express.static(__dirname + '/static'))
 
 // Mongo
